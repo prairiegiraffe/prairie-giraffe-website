@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prairie Giraffe - Blog Manager</title>
+    
+    <!-- Quill.js for rich text editing -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -159,6 +164,37 @@
             padding: 40px;
             color: #7f8c8d;
         }
+        
+        /* Quill editor customization */
+        .quill-editor {
+            min-height: 300px;
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .ql-toolbar {
+            border-top: 2px solid #e1e8ed;
+            border-left: 2px solid #e1e8ed;
+            border-right: 2px solid #e1e8ed;
+            border-bottom: none;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        .ql-container {
+            border-left: 2px solid #e1e8ed;
+            border-right: 2px solid #e1e8ed;
+            border-bottom: 2px solid #e1e8ed;
+            border-top: 1px solid #e1e8ed;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            min-height: 250px;
+        }
+        .ql-editor {
+            min-height: 250px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -208,10 +244,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="content">Content * (HTML or Markdown)</label>
-                    <textarea id="content" required placeholder="Write your blog post content here using HTML or Markdown..."></textarea>
+                    <label for="content">Content *</label>
+                    <div id="editor" class="quill-editor"></div>
+                    <textarea id="content" style="display: none;" required></textarea>
                     <small style="color: #7f8c8d; font-size: 12px; margin-top: 5px; display: block;">
-                        💡 You can use HTML tags (like &lt;h2&gt;, &lt;p&gt;, &lt;strong&gt;, &lt;a&gt;) or Markdown syntax
+                        💡 Use the rich text editor above to format your content with headings, bold, links, etc.
                     </small>
                 </div>
 
@@ -235,6 +272,30 @@
 
     <script>
         let posts = [];
+        let quill = null;
+
+        // Initialize Quill rich text editor
+        document.addEventListener('DOMContentLoaded', function() {
+            quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Write your blog post content here...'
+            });
+            
+            // Update hidden textarea when content changes
+            quill.on('text-change', function() {
+                const content = quill.root.innerHTML;
+                document.getElementById('content').value = content;
+            });
+        });
 
         // Switch between tabs
         function switchTab(tab) {
@@ -395,6 +456,12 @@
                     document.getElementById('category').value = categoryMatch ? categoryMatch[1] : '';
                     document.getElementById('description').value = descriptionMatch ? descriptionMatch[1] : '';
                     document.getElementById('content').value = body;
+                    
+                    // Load content into Quill editor
+                    if (quill) {
+                        quill.root.innerHTML = body;
+                    }
+                    
                     document.getElementById('cta_title').value = ctaTitleMatch ? ctaTitleMatch[1] : '';
                     document.getElementById('cta_description').value = ctaDescriptionMatch ? ctaDescriptionMatch[1] : '';
                     
@@ -416,6 +483,12 @@
         // Cancel edit mode
         function cancelEdit() {
             document.getElementById('blogForm').reset();
+            
+            // Clear Quill editor
+            if (quill) {
+                quill.setContents([]);
+            }
+            
             document.getElementById('editMode').value = 'false';
             document.getElementById('editFilename').value = '';
             document.getElementById('editSha').value = '';
@@ -450,6 +523,11 @@
         // Form submission
         document.getElementById('blogForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // Sync Quill content to hidden textarea
+            if (quill) {
+                document.getElementById('content').value = quill.root.innerHTML;
+            }
             
             const title = document.getElementById('title').value;
             const category = document.getElementById('category').value;
