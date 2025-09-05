@@ -168,6 +168,7 @@
         <div class="tabs">
             <button class="tab active" onclick="switchTab('list')">📝 All Posts</button>
             <button class="tab" onclick="switchTab('create')">➕ Create New</button>
+            <button class="btn small" onclick="clearToken()" style="margin-left: auto; padding: 8px 16px; font-size: 14px;">🔑 Reset Token</button>
         </div>
 
         <!-- Post List Tab -->
@@ -245,19 +246,66 @@
             }
         }
 
-        // GitHub API helper using Vercel function
+        // GitHub API helper using Vercel function or fallback to direct API
         async function githubAPI(method, path, body = null) {
-            const response = await fetch('/api/github', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ method, path, body })
-            });
+            try {
+                // First try using Vercel API endpoint
+                const response = await fetch('/api/github', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ method, path, body })
+                });
+                
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status === 500) {
+                    // Environment variable not set, fall back to manual token
+                    const error = await response.json();
+                    throw new Error('ENV_TOKEN_MISSING');
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || 'GitHub API request failed');
+                }
+            } catch (error) {
+                if (error.message === 'ENV_TOKEN_MISSING') {
+                    // Fallback to direct GitHub API with manual token
+                    return githubAPIFallback(method, path, body);
+                }
+                throw error;
+            }
+        }
+
+        // Fallback GitHub API using manual token
+        async function githubAPIFallback(method, path, body = null) {
+            const token = localStorage.getItem('github_token') || prompt('Please enter your GitHub Personal Access Token:');
             
+            if (!token) {
+                throw new Error('GitHub token is required');
+            }
+            
+            localStorage.setItem('github_token', token);
+            
+            const url = `https://api.github.com${path}`;
+            
+            const response = await fetch(url, {
+                method: method || 'GET',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Prairie-Giraffe-Blog'
+                },
+                body: body ? JSON.stringify(body) : undefined
+            });
+
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || 'GitHub API request failed');
+                if (response.status === 401) {
+                    localStorage.removeItem('github_token');
+                    throw new Error('Invalid GitHub token. Please check your token and try again.');
+                }
+                throw new Error(error.message || 'GitHub API request failed');
             }
             
             return response.json();
@@ -457,6 +505,12 @@ ${content}`;
                     status.style.display = 'none';
                 }, 5000);
             }
+        }
+
+        // Clear stored token
+        function clearToken() {
+            localStorage.removeItem('github_token');
+            showStatus('🔑 Token cleared. You\'ll be prompted for a new one on next action.', 'success');
         }
 
         // Load posts on page load

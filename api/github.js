@@ -11,7 +11,10 @@ export default async function handler(req, res) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   
   if (!GITHUB_TOKEN) {
-    return res.status(500).json({ error: 'GitHub token not configured' });
+    return res.status(500).json({ 
+      error: 'GitHub token not configured. Please add GITHUB_TOKEN environment variable in Vercel dashboard.',
+      setupInstructions: 'Go to Vercel Dashboard → Project Settings → Environment Variables → Add GITHUB_TOKEN'
+    });
   }
 
   const { method, path, body } = req.body || {};
