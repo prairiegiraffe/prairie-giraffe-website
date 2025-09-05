@@ -310,11 +310,20 @@
         // Load all posts
         async function loadPosts() {
             try {
-                const data = await githubAPI('GET', '/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/posts');
-                posts = data.filter(file => file.name.endsWith('.md'));
+                const data = await githubAPI('GET', '/repos/prairiegiraffe/prairie-giraffe-website/contents/blog');
+                posts = Array.isArray(data) ? data.filter(file => file.name.endsWith('.md')) : [];
                 displayPosts();
             } catch (error) {
                 console.error('Load posts error:', error);
+                
+                // Handle 404 - directory doesn't exist or is empty
+                if (error.message.includes('Not Found') || error.message.includes('404')) {
+                    posts = [];
+                    displayPosts();
+                    return;
+                }
+                
+                // Handle other errors
                 document.getElementById('postList').innerHTML = `
                     <div class="no-posts">
                         <h3>❌ Error loading posts</h3>
@@ -360,7 +369,7 @@
         // Edit a post
         async function editPost(filename) {
             try {
-                const data = await githubAPI('GET', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/posts/${filename}`);
+                const data = await githubAPI('GET', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/${filename}`);
                 const content = atob(data.content);
                 
                 // Parse frontmatter
@@ -418,9 +427,9 @@
             }
 
             try {
-                const data = await githubAPI('GET', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/posts/${filename}`);
+                const data = await githubAPI('GET', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/${filename}`);
                 
-                await githubAPI('DELETE', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/posts/${filename}`, {
+                await githubAPI('DELETE', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/${filename}`, {
                     message: `Delete blog post: ${filename}`,
                     sha: data.sha,
                     branch: 'main'
@@ -478,7 +487,7 @@ ${content}`;
                     requestBody.sha = document.getElementById('editSha').value;
                 }
 
-                await githubAPI('PUT', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/posts/${filename}`, requestBody);
+                await githubAPI('PUT', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/${filename}`, requestBody);
 
                 showStatus(`✅ Blog post "${title}" ${isEdit ? 'updated' : 'published'} successfully!`, 'success');
                 
