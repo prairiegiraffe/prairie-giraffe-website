@@ -105,23 +105,36 @@ function generatePostHTML(post) {
     day: 'numeric' 
   });
 
-  // Smart content processing - handles both HTML and Markdown
+  // Smart content processing - handles both HTML and Markdown with proper Prairie Giraffe styling
   let htmlContent = post.content;
   
   // If it looks like Markdown (no HTML tags), convert it
   if (!htmlContent.includes('<') || htmlContent.includes('##') || htmlContent.includes('**')) {
     htmlContent = htmlContent
-      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^# (.*$)/gim, '<h1 class="mil-up mil-mb-30">$1</h1>')
+      .replace(/^## (.*$)/gim, '<h2 class="mil-up mil-mb-30">$1</h2>')
+      .replace(/^### (.*$)/gim, '<h3 class="mil-up mil-mb-30">$1</h3>')
+      .replace(/^#### (.*$)/gim, '<h4 class="mil-up mil-mb-30">$1</h4>')
       .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/gim, '<em>$1</em>')
-      .replace(/!\[([^\]]*)\]\(([^\)]+)\)/gim, '<img alt="$1" src="$2" style="max-width: 100%; height: auto; margin: 20px 0;">')
+      .replace(/!\[([^\]]*)\]\(([^\)]+)\)/gim, '<img alt="$1" src="$2" class="mil-up mil-mb-30" style="max-width: 100%; height: auto;">')
       .replace(/\[([^\]]+)\]\(([^\)]+)\)/gim, '<a href="$2">$1</a>')
       .split('\n\n')
       .filter(p => p.trim())
-      .map(p => p.trim().startsWith('<') ? p : `<p>${p}</p>`)
-      .join('\n');
+      .map(p => {
+        if (p.trim().startsWith('<')) return p;
+        // Add proper Prairie Giraffe paragraph styling
+        return `<p class="mil-up mil-mb-30">${p}</p>`;
+      })
+      .join('\n\n                                        ');
+  } else {
+    // If it's already HTML, ensure proper spacing and classes are applied
+    htmlContent = htmlContent
+      .replace(/<p>/g, '<p class="mil-up mil-mb-30">')
+      .replace(/<h1>/g, '<h1 class="mil-up mil-mb-30">')
+      .replace(/<h2>/g, '<h2 class="mil-up mil-mb-30">')
+      .replace(/<h3>/g, '<h3 class="mil-up mil-mb-30">')
+      .replace(/<h4>/g, '<h4 class="mil-up mil-mb-30">');
   }
 
   return \`<!DOCTYPE html>
@@ -225,21 +238,67 @@ function generatePostHTML(post) {
                             </nav>
                         </div>
                         <div class="col-xl-7">
+
                             <div class="mil-menu-right-frame">
                                 <div class="mil-animation-in">
                                     <div class="mil-animation-frame">
                                         <div class="mil-animation mil-position-1 mil-scale" data-value-1="2" data-value-2="2"></div>
-                                        <div class="mil-animation mil-position-2 mil-scale" data-value-1="2" data-value-2="2"></div>
-                                        <div class="mil-animation mil-position-3 mil-scale" data-value-1="-2" data-value-2="-2"></div>
+                                    </div>
+                                </div>
+                                <div class="mil-menu-right">
+                                    <div class="row">
+                                        <div class="col-lg-8 mil-mb-60">
+
+                                            <h6 class="mil-muted mil-mb-30">Projects</h6>
+
+                                            <ul class="mil-menu-list">
+                                                <li><a href="../ai-automation.html" class="mil-light-soft">AI Automation</a></li>
+                                                <li><a href="../website-development.html" class="mil-light-soft">Website Development</a></li>
+                                                <li><a href="../seo-services.html" class="mil-light-soft">SEO Services</a></li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="col-lg-4 mil-mb-60">
+
+                                            <h6 class="mil-muted mil-mb-30">Contacts</h6>
+
+                                            <p class="mil-light-soft mil-mb-10">PO Box 2298</p>
+                                            <p class="mil-light-soft">Gillette, WY 82717</p>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- menu end -->
+
+        <!-- curtain -->
+        <div class="mil-curtain"></div>
+        <!-- curtain end -->
+
+        <!-- frame -->
+        <div class="mil-frame">
+            <div class="mil-frame-top">
+                <a href="../index.html" class="mil-logo">PG.</a>
+                <div class="mil-menu-btn">
+                    <span></span>
+                </div>
+            </div>
+            <div class="mil-frame-bottom">
+                <div class="mil-current-page">Blog</div>
+                <div class="mil-back-to-top">
+                    <a href="#top" class="mil-link mil-dark mil-arrow-place">
+                        <span>Back to top</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- frame end -->
 
         <!-- content -->
         <div class="mil-content">
@@ -248,24 +307,17 @@ function generatePostHTML(post) {
                 <!-- banner -->
                 <div class="mil-inner-banner mil-p-0-120">
                     <div class="mil-banner-content mil-center mil-up">
-                        <div class="mil-animation-frame">
-                            <div class="mil-animation mil-position-1 mil-scale" data-value-1="7" data-value-2="1.4"></div>
-                            <div class="mil-animation mil-position-2 mil-scale" data-value-1="4" data-value-2="1"></div>
-                            <div class="mil-animation mil-position-3 mil-scale" data-value-1="-1" data-value-2="-2"></div>
-                        </div>
                         <div class="container">
-                            <ul class="mil-breadcrumbs mil-mb-60">
-                                <li><a href="../index.html">Homepage</a></li>
-                                <li><a href="../blog/">Blog</a></li>
-                                <li><a href="#.">\${post.title}</a></li>
+                            <ul class="mil-breadcrumbs mil-center mil-mb-60">
+                                <li><a href="../index.html">Home</a></li>
+                                <li><a href="../blog/index.html">Blog</a></li>
+                                <li><a href="">\${post.title}</a></li>
                             </ul>
                             <h1 class="mil-mb-60">\${post.title}</h1>
-                            <div class="mil-blog-info">
-                                <span class="mil-accent">\${post.category}</span>
-                                <span>/</span>
-                                <span>\${formattedDate}</span>
-                                <span>/</span>
-                                <span>By \${post.author}</span>
+                            <div class="mil-pub-info mil-mb-60">
+                                <span class="mil-pub-author">By \${post.author}</span>
+                                <span class="mil-pub-date">\${formattedDate}</span>
+                                <span class="mil-pub-category">\${post.category}</span>
                             </div>
                         </div>
                     </div>
@@ -273,28 +325,32 @@ function generatePostHTML(post) {
                 <!-- banner end -->
 
                 <!-- publication -->
-                <div class="mil-p-120-60">
+                <section>
                     <div class="container mil-p-120-60">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
+
                                 <div class="mil-publication">
-                                    <div class="mil-publication-content">
+                                    
+                                    <div class="mil-pub-content">
                                         \${htmlContent}
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
                 <!-- publication end -->
 
                 <!-- call to action -->
-                <div class="mil-cta mil-up">
+                <section class="mil-soft-bg">
                     <div class="container mil-p-120-90">
                         <div class="row">
                             <div class="col-lg-10">
                                 <div class="mil-center">
-                                    <span class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up">Want help with your business?</span>
+                                    <span class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up">Ready to grow your business?</span>
                                     <h2 class="mil-up mil-mb-30">\${post.cta_title}</h2>
                                     <p class="mil-up mil-mb-40">\${post.cta_description}</p>
                                     <div class="mil-up">
@@ -306,7 +362,7 @@ function generatePostHTML(post) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
                 <!-- call to action end -->
 
             </div>
@@ -314,48 +370,164 @@ function generatePostHTML(post) {
         <!-- content end -->
 
         <!-- footer -->
-        <footer class="mil-relative">
-            <div class="container mil-p-120-60">
-                <div class="row justify-content-between">
-                    <div class="col-md-4 col-lg-4 mil-mb-60">
-                        <div class="mil-muted mil-logo mil-up mil-mb-30">Prairie Giraffe</div>
-                        <p class="mil-light-soft mil-up mil-mb-30">We are a team of creatives who help businesses grow through digital marketing and web development.</p>
-                    </div>
-                    <div class="col-md-7 col-lg-6">
-                        <div class="row justify-content-end">
-                            <div class="col-md-6 col-lg-7">
-                                <nav class="mil-footer-menu mil-mb-60">
-                                    <ul>
-                                        <li class="mil-up mil-active">
-                                            <a href="../blog/">Blog</a>
-                                        </li>
-                                        <li class="mil-up">
-                                            <a href="../services.html">Services</a>
-                                        </li>
-                                        <li class="mil-up">
-                                            <a href="../contact.html">Contact</a>
-                                        </li>
-                                        <li class="mil-up">
-                                            <a href="../team.html">Team</a>
-                                        </li>
+        <footer class="mil-dark-bg">
+            <div class="mi-invert-fix">
+                <div class="container mil-p-120-60">
+                    <div class="row justify-content-between">
+                        <div class="col-md-4 col-lg-4 mil-mb-60">
+
+                            <div class="mil-muted mil-logo mil-up mil-mb-30">Prairie Giraffe</div>
+
+                            <p class="mil-light-soft mil-up mil-mb-30">PO Box 2298<br>Gillette, WY 82717<br>info@prairiegiraffe.com</p>
+
+                            <ul class="mil-social-icons mil-up">
+                                <li><a href="#" target="_blank" class="social-icon"> <i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#" target="_blank" class="social-icon"> <i class="fab fa-facebook"></i></a></li>
+                                <li><a href="#" target="_blank" class="social-icon"> <i class="fab fa-instagram"></i></a></li>
+                            </ul>
+
+                        </div>
+                        <div class="col-md-7 col-lg-6">
+                            <div class="row justify-content-end">
+                                <div class="col-md-6 col-lg-7">
+
+                                    <nav class="mil-footer-menu mil-mb-60">
+                                        <ul>
+                                            <li class="mil-up">
+                                                <a href="../index.html">Home</a>
+                                            </li>
+                                            <li class="mil-up">
+                                                <a href="../services.html">Services</a>
+                                            </li>
+                                            <li class="mil-up">
+                                                <a href="../team.html">About</a>
+                                            </li>
+                                            <li class="mil-up">
+                                                <a href="../contact.html">Contact</a>
+                                            </li>
+                                            <li class="mil-up mil-active">
+                                                <a href="../blog/index.html">Blog</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+
+                                </div>
+                                <div class="col-md-6 col-lg-5">
+
+                                    <ul class="mil-menu-list mil-up mil-mb-60">
+                                        <li><a href="../ai-automation.html" class="mil-light-soft">AI Automation</a></li>
+                                        <li><a href="../website-development.html" class="mil-light-soft">Website Development</a></li>
+                                        <li><a href="../seo-services.html" class="mil-light-soft">SEO Services</a></li>
+                                        <li><a href="../gillette-services.html" class="mil-light-soft">Gillette Local</a></li>
                                     </ul>
-                                </nav>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="mil-center">
-                            <p class="mil-light-soft mil-up">© Copyright 2025 • Prairie Giraffe • Everyone Is Welcome</p>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mil-center">
+                                <p class="mil-light-soft mil-up">© Copyright 2025 • Prairie Giraffe • Everyone Is Welcome</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
         <!-- footer end -->
+
+        <!-- hidden elements -->
+        <div class="mil-hidden-elements">
+            <div class="mil-dodecahedron">
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="mil-pentagon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <!-- hidden elements end -->
 
     </div>
     <!-- wrapper end -->
