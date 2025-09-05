@@ -1,16 +1,3 @@
-# Option 1: Git Gateway (requires Netlify Identity)
-# backend:
-#   name: git-gateway
-#   branch: main
-
-# Option 2: GitHub with OAuth (your current setup - fix callback URL)
-# backend:
-#   name: github
-#   repo: prairiegiraffe/prairie-giraffe-website
-#   branch: main
-#   client_id: Ov23li1ZnT8mEixfVplM
-
-# Option 3: GitHub with Personal Access Token (easiest)
 backend:
   name: github
   repo: prairiegiraffe/prairie-giraffe-website
@@ -19,16 +6,16 @@ backend:
 # Uncomment below to enable drafts
 # publish_mode: editorial_workflow
 
-media_folder: "img/blog" # Media files will be stored in the repo under img/blog
-public_folder: "../img/blog" # The src attribute for uploaded media will begin with ../img/blog
+media_folder: "img/blog"
+public_folder: "../img/blog"
 
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog Posts" # Used in the UI
-    folder: "blog" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    fields: # The fields for each document, usually in front matter
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Author", name: "author", widget: "string", default: "Kellee Carroll"}
@@ -39,8 +26,8 @@ collections:
       - {label: "Call to Action Title", name: "cta_title", widget: "string", default: "Ready to Transform Your Digital Presence?"}
       - {label: "Call to Action Description", name: "cta_description", widget: "text", default: "Let Prairie Giraffe help you implement these strategies for your business growth."}
 
-  - name: "pages"
-    label: "Pages"
+  - name: "site_pages"
+    label: "Site Pages"
     files:
       - label: "About Page"
         name: "about"
@@ -48,7 +35,7 @@ collections:
         fields:
           - {label: "Title", name: "title", widget: "string"}
           - {label: "Body", name: "body", widget: "markdown"}
-      - label: "Contact Page"  
+      - label: "Contact Page"
         name: "contact"
         file: "contact.md"
         fields:

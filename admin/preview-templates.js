@@ -1,3 +1,7 @@
+// Preview templates disabled temporarily to fix initialization issues
+// Will be re-enabled once CMS is working properly
+
+/*
 // Preview template for blog posts
 var BlogPostPreview = createClass({
   render: function() {
@@ -22,3 +26,4 @@ var BlogPostPreview = createClass({
 
 // Register the preview template
 CMS.registerPreviewTemplate('blog', BlogPostPreview);
+*/
