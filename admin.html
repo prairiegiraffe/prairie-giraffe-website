@@ -260,20 +260,16 @@
                 
                 if (response.ok) {
                     return response.json();
-                } else if (response.status === 500) {
-                    // Environment variable not set, fall back to manual token
-                    const error = await response.json();
-                    throw new Error('ENV_TOKEN_MISSING');
                 } else {
-                    const error = await response.json();
-                    throw new Error(error.error || 'GitHub API request failed');
-                }
-            } catch (error) {
-                if (error.message === 'ENV_TOKEN_MISSING') {
-                    // Fallback to direct GitHub API with manual token
+                    // Any error with Vercel API, fall back to direct GitHub API
+                    console.log('Vercel API failed with status:', response.status);
+                    console.log('Falling back to direct GitHub API...');
                     return githubAPIFallback(method, path, body);
                 }
-                throw error;
+            } catch (error) {
+                console.log('Vercel API error, falling back:', error.message);
+                // Any fetch error, fall back to direct GitHub API
+                return githubAPIFallback(method, path, body);
             }
         }
 
