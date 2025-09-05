@@ -72,7 +72,7 @@ export default async function handler(req, res) {
     const html = generatePostHTML(post);
 
     // Save the HTML file
-    const htmlFileResponse = await fetch(`https://api.github.com/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/blog-post-${slug}.html`, {
+    const htmlFileResponse = await fetch(`https://api.github.com/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/${slug}.html`, {
       method: 'PUT',
       headers: {
         'Authorization': `token ${GITHUB_TOKEN}`,
@@ -86,7 +86,7 @@ export default async function handler(req, res) {
     });
 
     if (htmlFileResponse.ok) {
-      res.status(200).json({ success: true, url: `blog-post-${slug}.html` });
+      res.status(200).json({ success: true, url: `${slug}.html` });
     } else {
       const error = await htmlFileResponse.json();
       throw new Error(error.message || 'Failed to create HTML file');
