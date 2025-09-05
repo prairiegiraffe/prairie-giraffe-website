@@ -1,0 +1,51 @@
+# Large image files (keep placeholders, ignore heavy originals)
+img/**/*.png
+img/**/*.jpg
+img/**/*.jpeg
+img/**/*.gif
+!img/blog/blog-*.jpg
+!img/blog/1.jpg
+!img/blog/2.jpg
+!img/blog/3.jpg
+!img/blog/4.jpg
+!img/blog/5.jpg
+!img/blog/6.jpg
+!img/blog/7.jpg
+!img/blog/8.jpg
+
+# WordPress export (contains sensitive data)
+*.xml
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Node modules (if added later)
+node_modules/
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Log files
+*.log
+
+# Build artifacts
+dist/
+build/
