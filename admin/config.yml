@@ -1,0 +1,43 @@
+backend:
+  name: github
+  repo: prairiegiraffe/prairie-giraffe-website # Path to your GitHub repository
+  branch: main # Branch to update
+
+# Uncomment below to enable drafts
+# publish_mode: editorial_workflow
+
+media_folder: "img/blog" # Media files will be stored in the repo under img/blog
+public_folder: "../img/blog" # The src attribute for uploaded media will begin with ../img/blog
+
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog Posts" # Used in the UI
+    folder: "blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string", default: "Kellee Carroll"}
+      - {label: "Category", name: "category", widget: "select", options: ["Local SEO", "Content Marketing", "AI Automation", "Website Development", "Online Marketing Basics"]}
+      - {label: "Meta Description", name: "description", widget: "text"}
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Call to Action Title", name: "cta_title", widget: "string", default: "Ready to Transform Your Digital Presence?"}
+      - {label: "Call to Action Description", name: "cta_description", widget: "text", default: "Let Prairie Giraffe help you implement these strategies for your business growth."}
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "about.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Contact Page"  
+        name: "contact"
+        file: "contact.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
