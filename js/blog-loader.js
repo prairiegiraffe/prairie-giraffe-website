@@ -171,12 +171,17 @@ class BlogLoader {
 
     // Initialize and render posts
     async init() {
+        console.log('Blog loader init() called');
+        
         // Find the blog container (look for the container with existing blog cards)
         const blogContainer = document.querySelector('.row');
+        console.log('Blog container found:', !!blogContainer);
         if (!blogContainer) return;
 
         // Load markdown posts
+        console.log('Loading markdown posts...');
         this.posts = await this.loadPosts();
+        console.log('Loaded posts:', this.posts.length, this.posts);
 
         if (this.posts.length === 0) {
             console.log('No markdown posts found');
@@ -185,23 +190,34 @@ class BlogLoader {
 
         // Insert markdown posts at the beginning (newest first)
         const markdownPostsHTML = this.posts.map(post => this.generateBlogCard(post)).join('');
+        console.log('Generated HTML for', this.posts.length, 'posts');
         
         // Find the first column div and insert markdown posts before it
         const firstCol = blogContainer.querySelector('.col-lg-12');
+        console.log('First column found:', !!firstCol);
         if (firstCol) {
             firstCol.insertAdjacentHTML('beforebegin', markdownPostsHTML);
+            console.log('Inserted markdown posts before first column');
         } else {
             // Fallback: append to container
             blogContainer.insertAdjacentHTML('afterbegin', markdownPostsHTML);
+            console.log('Inserted markdown posts at beginning of container');
         }
     }
 }
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Blog loader script loaded');
+    console.log('Current path:', window.location.pathname);
+    console.log('Found blog cards:', !!document.querySelector('.mil-blog-card'));
+    
     // Check if we're on a blog page
     if (document.querySelector('.mil-blog-card') || window.location.pathname.includes('blog')) {
+        console.log('Initializing blog loader...');
         window.blogLoader = new BlogLoader();
         blogLoader.init();
+    } else {
+        console.log('Not on blog page, skipping blog loader');
     }
 });
