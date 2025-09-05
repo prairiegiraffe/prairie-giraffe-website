@@ -2,6 +2,7 @@ backend:
   name: github
   repo: prairiegiraffe/prairie-giraffe-website
   branch: main
+  client_id: Ov23li1ZnT8mEixfVplM
 
 # Test mode backend (use for debugging)
 # backend:
