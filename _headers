@@ -5,3 +5,6 @@
 
 /admin/*
   X-Frame-Options: SAMEORIGIN
+
+/admin/config.yml
+  Content-Type: text/yaml
