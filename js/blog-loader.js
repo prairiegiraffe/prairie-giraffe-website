@@ -173,10 +173,13 @@ class BlogLoader {
     async init() {
         console.log('Blog loader init() called');
         
-        // Find the blog container (look for the container with existing blog cards)
-        const blogContainer = document.querySelector('.row');
+        // Find the specific blog posts container (the one with blog cards)
+        const blogContainer = document.querySelector('.mil-blog-card').closest('.row');
         console.log('Blog container found:', !!blogContainer);
-        if (!blogContainer) return;
+        if (!blogContainer) {
+            console.log('Could not find blog container');
+            return;
+        }
 
         // Load markdown posts
         console.log('Loading markdown posts...');
@@ -192,17 +195,9 @@ class BlogLoader {
         const markdownPostsHTML = this.posts.map(post => this.generateBlogCard(post)).join('');
         console.log('Generated HTML for', this.posts.length, 'posts');
         
-        // Find the first column div and insert markdown posts before it
-        const firstCol = blogContainer.querySelector('.col-lg-12');
-        console.log('First column found:', !!firstCol);
-        if (firstCol) {
-            firstCol.insertAdjacentHTML('beforebegin', markdownPostsHTML);
-            console.log('Inserted markdown posts before first column');
-        } else {
-            // Fallback: append to container
-            blogContainer.insertAdjacentHTML('afterbegin', markdownPostsHTML);
-            console.log('Inserted markdown posts at beginning of container');
-        }
+        // Insert at the beginning of the blog container
+        blogContainer.insertAdjacentHTML('afterbegin', markdownPostsHTML);
+        console.log('Inserted markdown posts at beginning of blog container');
     }
 }
 
