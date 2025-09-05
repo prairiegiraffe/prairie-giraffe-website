@@ -132,15 +132,15 @@ function generatePostHTML(post) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- bootstrap grid css -->
-    <link rel="stylesheet" href="/css/plugins/bootstrap-grid.css">
+    <link rel="stylesheet" href="../css/plugins/bootstrap-grid.css">
     <!-- font awesome css -->
-    <link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/plugins/font-awesome.min.css">
     <!-- swiper css -->
-    <link rel="stylesheet" href="/css/plugins/swiper.min.css">
+    <link rel="stylesheet" href="../css/plugins/swiper.min.css">
     <!-- fancybox css -->
-    <link rel="stylesheet" href="/css/plugins/fancybox.min.css">
+    <link rel="stylesheet" href="../css/plugins/fancybox.min.css">
     <!-- ashley scss -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     
     <!-- page name -->
     <title>\${post.title} - Prairie Giraffe</title>
@@ -181,7 +181,7 @@ function generatePostHTML(post) {
         <div class="mil-menu-frame">
             <!-- frame clone -->
             <div class="mil-frame-top">
-                <a href="/index.html" class="mil-logo">PG.</a>
+                <a href="../index.html" class="mil-logo">PG.</a>
                 <div class="mil-menu-btn">
                     <span></span>
                 </div>
@@ -196,29 +196,29 @@ function generatePostHTML(post) {
                                     <li class="mil-has-children">
                                         <a href="#.">Homepage</a>
                                         <ul>
-                                            <li><a href="/index.html">Home</a></li>
+                                            <li><a href="../index.html">Home</a></li>
                                         </ul>
                                     </li>
                                     <li class="mil-has-children">
                                         <a href="#.">Services</a>
                                         <ul>
-                                            <li><a href="/services.html">Services List</a></li>
-                                            <li><a href="/ai-automation.html">AI Automation</a></li>
-                                            <li><a href="/website-development.html">Website Development</a></li>
-                                            <li><a href="/seo-services.html">SEO Services</a></li>
+                                            <li><a href="../services.html">Services List</a></li>
+                                            <li><a href="../ai-automation.html">AI Automation</a></li>
+                                            <li><a href="../website-development.html">Website Development</a></li>
+                                            <li><a href="../seo-services.html">SEO Services</a></li>
                                         </ul>
                                     </li>
                                     <li class="mil-has-children mil-active">
                                         <a href="#.">Blog</a>
                                         <ul>
-                                            <li><a href="/blog/index.html">Blog</a></li>
+                                            <li><a href="../blog/index.html">Blog</a></li>
                                         </ul>
                                     </li>
                                     <li class="mil-has-children">
                                         <a href="#.">Other pages</a>
                                         <ul>
-                                            <li><a href="/team.html">Team</a></li>
-                                            <li><a href="/contact.html">Contact</a></li>
+                                            <li><a href="../team.html">Team</a></li>
+                                            <li><a href="../contact.html">Contact</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -255,8 +255,8 @@ function generatePostHTML(post) {
                         </div>
                         <div class="container">
                             <ul class="mil-breadcrumbs mil-mb-60">
-                                <li><a href="/index.html">Homepage</a></li>
-                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="../index.html">Homepage</a></li>
+                                <li><a href="../blog/">Blog</a></li>
                                 <li><a href="#.">\${post.title}</a></li>
                             </ul>
                             <h1 class="mil-mb-60">\${post.title}</h1>
@@ -298,7 +298,7 @@ function generatePostHTML(post) {
                                     <h2 class="mil-up mil-mb-30">\${post.cta_title}</h2>
                                     <p class="mil-up mil-mb-40">\${post.cta_description}</p>
                                     <div class="mil-up">
-                                        <a href="/contact.html" class="mil-button mil-arrow-place">
+                                        <a href="../contact.html" class="mil-button mil-arrow-place">
                                             <span>Get Started Today</span>
                                         </a>
                                     </div>
@@ -327,16 +327,16 @@ function generatePostHTML(post) {
                                 <nav class="mil-footer-menu mil-mb-60">
                                     <ul>
                                         <li class="mil-up mil-active">
-                                            <a href="/blog/">Blog</a>
+                                            <a href="../blog/">Blog</a>
                                         </li>
                                         <li class="mil-up">
-                                            <a href="/services.html">Services</a>
+                                            <a href="../services.html">Services</a>
                                         </li>
                                         <li class="mil-up">
-                                            <a href="/contact.html">Contact</a>
+                                            <a href="../contact.html">Contact</a>
                                         </li>
                                         <li class="mil-up">
-                                            <a href="/team.html">Team</a>
+                                            <a href="../team.html">Team</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -361,23 +361,23 @@ function generatePostHTML(post) {
     <!-- wrapper end -->
 
     <!-- jquery js -->
-    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="../js/plugins/jquery.min.js"></script>
     <!-- swiper js -->
-    <script src="/js/plugins/swiper.min.js"></script>
+    <script src="../js/plugins/swiper.min.js"></script>
     <!-- itsulu js -->
-    <script src="/js/plugins/itsulu.min.js"></script>
+    <script src="../js/plugins/itsulu.min.js"></script>
     <!-- fancybox js -->
-    <script src="/js/plugins/fancybox.min.js"></script>
+    <script src="../js/plugins/fancybox.min.js"></script>
     <!-- gsap js -->
-    <script src="/js/plugins/gsap.min.js"></script>
+    <script src="../js/plugins/gsap.min.js"></script>
     <!-- scroll smoother -->
-    <script src="/js/plugins/smooth-scroll.js"></script>
+    <script src="../js/plugins/smooth-scroll.js"></script>
     <!-- scroll trigger js -->
-    <script src="/js/plugins/ScrollTrigger.min.js"></script>
+    <script src="../js/plugins/ScrollTrigger.min.js"></script>
     <!-- scroll to js -->
-    <script src="/js/plugins/ScrollTo.min.js"></script>
+    <script src="../js/plugins/ScrollTo.min.js"></script>
     <!-- ashley js -->
-    <script src="/js/blog.js"></script>
+    <script src="../js/blog.js"></script>
 
 </body>
 </html>\`;
