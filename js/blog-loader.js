@@ -171,28 +171,36 @@ class BlogLoader {
 
     // Initialize and render posts
     async init() {
+        // Find the blog container (look for the container with existing blog cards)
         const blogContainer = document.querySelector('.row');
         if (!blogContainer) return;
 
-        // Show loading state
-        blogContainer.innerHTML = '<div class="col-12"><p style="text-align: center; padding: 40px;">Loading blog posts...</p></div>';
-
-        // Load posts
+        // Load markdown posts
         this.posts = await this.loadPosts();
 
         if (this.posts.length === 0) {
-            blogContainer.innerHTML = '<div class="col-12"><p style="text-align: center; padding: 40px;">No blog posts available yet.</p></div>';
-            return;
+            console.log('No markdown posts found');
+            return; // Keep existing HTML posts, don't show loading message
         }
 
-        // Render posts
-        blogContainer.innerHTML = this.posts.map(post => this.generateBlogCard(post)).join('');
+        // Insert markdown posts at the beginning (newest first)
+        const markdownPostsHTML = this.posts.map(post => this.generateBlogCard(post)).join('');
+        
+        // Find the first column div and insert markdown posts before it
+        const firstCol = blogContainer.querySelector('.col-lg-12');
+        if (firstCol) {
+            firstCol.insertAdjacentHTML('beforebegin', markdownPostsHTML);
+        } else {
+            // Fallback: append to container
+            blogContainer.insertAdjacentHTML('afterbegin', markdownPostsHTML);
+        }
     }
 }
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    if (document.querySelector('.mil-blog-card')) {
+    // Check if we're on a blog page
+    if (document.querySelector('.mil-blog-card') || window.location.pathname.includes('blog')) {
         window.blogLoader = new BlogLoader();
         blogLoader.init();
     }
