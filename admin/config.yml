@@ -1,12 +1,11 @@
-# Test mode backend (no authentication required)
 backend:
-  name: test-repo
+  name: github
+  repo: prairiegiraffe/prairie-giraffe-website
+  branch: main
 
-# Production backend (uncomment when ready)
+# Test mode backend (use for debugging)
 # backend:
-#   name: github
-#   repo: prairiegiraffe/prairie-giraffe-website
-#   branch: main
+#   name: test-repo
 
 # Uncomment below to enable drafts
 # publish_mode: editorial_workflow
@@ -15,10 +14,11 @@ media_folder: "img/blog"
 public_folder: "../img/blog"
 
 collections:
-  - name: "blog"
-    label: "Blog Posts"
-    folder: "blog"
+  - name: "blog_posts"
+    label: "New Blog Posts"
+    folder: "blog/posts" 
     create: true
+    extension: "md"
     slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
