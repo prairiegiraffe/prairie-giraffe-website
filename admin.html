@@ -311,7 +311,7 @@
         async function loadPosts() {
             try {
                 const data = await githubAPI('GET', '/repos/prairiegiraffe/prairie-giraffe-website/contents/blog');
-                posts = Array.isArray(data) ? data.filter(file => file.name.endsWith('.md')) : [];
+                posts = Array.isArray(data) ? data.filter(file => file.name.endsWith('.md') || file.name.endsWith('.html')) : [];
                 displayPosts();
             } catch (error) {
                 console.error('Load posts error:', error);
@@ -348,15 +348,17 @@
             }
 
             const postHTML = posts.map(post => {
-                const name = post.name.replace('.md', '');
+                const name = post.name.replace(/\.(md|html)$/, '');
                 const title = name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                const isMarkdown = post.name.endsWith('.md');
+                const fileType = isMarkdown ? 'Markdown' : 'HTML';
                 
                 return `
                     <div class="post-item">
                         <div class="post-title">${title}</div>
-                        <div class="post-meta">File: ${post.name}</div>
+                        <div class="post-meta">File: ${post.name} (${fileType})</div>
                         <div class="post-actions">
-                            <button class="btn secondary small" onclick="editPost('${post.name}')">✏️ Edit</button>
+                            ${isMarkdown ? `<button class="btn secondary small" onclick="editPost('${post.name}')">✏️ Edit</button>` : '<span class="btn small" style="background: #95a5a6; cursor: not-allowed;">📄 HTML (read-only)</span>'}
                             <button class="btn danger small" onclick="deletePost('${post.name}')">🗑️ Delete</button>
                         </div>
                     </div>
