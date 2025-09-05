@@ -318,8 +318,17 @@
                 posts = data.filter(file => file.name.endsWith('.md'));
                 displayPosts();
             } catch (error) {
+                console.error('Load posts error:', error);
                 document.getElementById('postList').innerHTML = `
-                    <div class="no-posts">❌ Error loading posts: ${error.message}</div>
+                    <div class="no-posts">
+                        <h3>❌ Error loading posts</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <details>
+                            <summary>Debug Info (click to expand)</summary>
+                            <pre>${JSON.stringify(error, null, 2)}</pre>
+                        </details>
+                        <p><small>Check the browser console for more details.</small></p>
+                    </div>
                 `;
             }
         }
