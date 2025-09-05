@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "api/auth.js": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "headers": [
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,8 @@ backend:
   repo: prairiegiraffe/prairie-giraffe-website # Path to your GitHub repository
   branch: main # Branch to update
   client_id: Ov23li1ZnT8mEixfVplM
+  base_url: https://prairie-giraffe-website.vercel.app # Your site URL
+  auth_endpoint: api/auth # Custom auth endpoint for Vercel
 
 # Uncomment below to enable drafts
 # publish_mode: editorial_workflow
