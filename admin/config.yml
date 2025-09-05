@@ -1,7 +1,12 @@
+# Test mode backend (no authentication required)
 backend:
-  name: github
-  repo: prairiegiraffe/prairie-giraffe-website
-  branch: main
+  name: test-repo
+
+# Production backend (uncomment when ready)
+# backend:
+#   name: github
+#   repo: prairiegiraffe/prairie-giraffe-website
+#   branch: main
 
 # Uncomment below to enable drafts
 # publish_mode: editorial_workflow
