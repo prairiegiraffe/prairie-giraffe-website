@@ -110,14 +110,23 @@ class BlogLoader {
     // Generate blog card HTML
     generateBlogCard(post) {
         const excerpt = post.description || post.content.substring(0, 150) + '...';
+        const postUrl = `blog-post-${post.slug}.html`;
+        
+        // Better placeholder with proper aspect ratio
+        const imageHTML = post.featured_image ? 
+            `<img src="${post.featured_image}" alt="${post.title}">` :
+            `<div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; text-align: center; padding: 20px;">
+                <div>
+                    <div style="font-size: 32px; margin-bottom: 10px;">${post.category === 'Local SEO' ? '🎯' : post.category === 'Content Marketing' ? '📝' : post.category === 'AI Automation' ? '🤖' : post.category === 'Website Development' ? '💻' : '📊'}</div>
+                    <div>${post.category}</div>
+                </div>
+            </div>`;
         
         return `
             <div class="col-lg-12">
-                <a href="#" class="mil-blog-card mil-blog-card-hori mil-more mil-mb-60" onclick="blogLoader.viewPost('${post.slug}'); return false;">
+                <a href="${postUrl}" data-no-swup class="mil-blog-card mil-blog-card-hori mil-more mil-mb-60">
                     <div class="mil-cover-frame mil-up">
-                        <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
-                            ${post.title.substring(0, 2).toUpperCase()}
-                        </div>
+                        ${imageHTML}
                     </div>
                     <div class="mil-post-descr">
                         <div class="mil-labels mil-up mil-mb-30">
@@ -169,6 +178,23 @@ class BlogLoader {
         document.body.appendChild(modal);
     }
 
+    // Generate HTML pages for posts (for SEO)
+    async generatePostPages() {
+        console.log('Generating HTML pages for posts...');
+        for (const post of this.posts) {
+            try {
+                const response = await fetch(`/api/generate-post?slug=${post.slug}`);
+                if (response.ok) {
+                    console.log(`Generated HTML page for: ${post.title}`);
+                } else {
+                    console.log(`Failed to generate page for: ${post.title}`);
+                }
+            } catch (error) {
+                console.log(`Error generating page for ${post.title}:`, error);
+            }
+        }
+    }
+
     // Initialize and render posts
     async init() {
         console.log('Blog loader init() called');
@@ -190,6 +216,9 @@ class BlogLoader {
             console.log('No markdown posts found');
             return; // Keep existing HTML posts, don't show loading message
         }
+
+        // Generate HTML pages for each post (for SEO)
+        await this.generatePostPages();
 
         // Insert markdown posts at the beginning (newest first)
         const markdownPostsHTML = this.posts.map(post => this.generateBlogCard(post)).join('');
