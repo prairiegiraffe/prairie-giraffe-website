@@ -1,8 +1,25 @@
 export default function handler(req, res) {
-  const { code } = req.query;
+  // Handle both GET and POST requests, check query and body
+  const code = req.query.code || req.body?.code;
+  
+  // Add debugging
+  console.log('Auth endpoint called:', {
+    method: req.method,
+    query: req.query,
+    body: req.body,
+    code: code
+  });
 
   if (!code) {
-    res.status(400).json({ error: 'Missing authorization code' });
+    console.error('No authorization code found in request');
+    res.status(400).json({ 
+      error: 'Missing authorization code',
+      debug: {
+        method: req.method,
+        query: req.query,
+        body: req.body
+      }
+    });
     return;
   }
 
