@@ -1,8 +1,20 @@
+# Option 1: Git Gateway (requires Netlify Identity)
+# backend:
+#   name: git-gateway
+#   branch: main
+
+# Option 2: GitHub with OAuth (your current setup - fix callback URL)
+# backend:
+#   name: github
+#   repo: prairiegiraffe/prairie-giraffe-website
+#   branch: main
+#   client_id: Ov23li1ZnT8mEixfVplM
+
+# Option 3: GitHub with Personal Access Token (easiest)
 backend:
   name: github
-  repo: prairiegiraffe/prairie-giraffe-website # Path to your GitHub repository
-  branch: main # Branch to update
-  client_id: Ov23li1ZnT8mEixfVplM
+  repo: prairiegiraffe/prairie-giraffe-website
+  branch: main
 
 # Uncomment below to enable drafts
 # publish_mode: editorial_workflow
