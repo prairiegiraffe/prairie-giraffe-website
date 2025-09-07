@@ -1,0 +1,36 @@
+backend:
+  name: git-gateway
+  branch: main # Change to your main branch name if different
+
+# For local development (remove when deploying)
+local_backend: true
+
+media_folder: "ashley/img/blog" # Where uploaded images will be stored
+public_folder: "img/blog" # The src attribute for uploaded images
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "ashley/blog-posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "select", options: ["AI Automation", "Website Development", "SEO & Marketing", "Business Tips"]}
+      - {label: "Featured Image", name: "featured_image", widget: "image"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Featured Post", name: "featured", widget: "boolean", default: false}
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Blog Settings"
+        name: "blog-settings"
+        file: "ashley/blog-posts/_settings.yml"
+        fields:
+          - {label: "Blog Title", name: "title", widget: "string", default: "AI, Tech & Business Insights"}
+          - {label: "Blog Description", name: "description", widget: "text"}
+          - {label: "Posts Per Page", name: "posts_per_page", widget: "number", default: 6}

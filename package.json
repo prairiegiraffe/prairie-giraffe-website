@@ -1,0 +1,33 @@
+{
+  "name": "prairie-giraffe-website",
+  "version": "1.0.0",
+  "description": "Prairie Giraffe business website with CMS and component build system",
+  "main": "build.js",
+  "scripts": {
+    "build": "npm run build:css && node build.js && node build-blog.js",
+    "build:site": "node build.js",
+    "build:blog": "node build-blog.js",
+    "build:css": "npx sass ashley/scss/style.scss ashley/css/style.css",
+    "dev": "npm run build && npx http-server dist -p 3000",
+    "cms": "npx decap-server",
+    "start": "npm run build"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.10",
+    "gray-matter": "^4.0.3",
+    "marked": "^16.2.1"
+  },
+  "devDependencies": {
+    "decap-server": "^3.3.1",
+    "http-server": "^14.1.1",
+    "sass": "^1.92.1"
+  },
+  "keywords": [
+    "html",
+    "template",
+    "components"
+  ],
+  "author": "Prairie Giraffe",
+  "license": "MIT"
+}
