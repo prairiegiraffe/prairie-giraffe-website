@@ -3,6 +3,8 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/admin/(.*)",
@@ -12,6 +14,36 @@
           "value": "SAMEORIGIN"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/services",
+      "destination": "/services.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/ai-automation",
+      "destination": "/ai-automation.html"
+    },
+    {
+      "source": "/website-development",
+      "destination": "/website-development.html"
+    },
+    {
+      "source": "/seo-services",
+      "destination": "/seo-services.html"
     }
   ]
 }

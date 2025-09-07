@@ -84,48 +84,48 @@ class ComponentBuilder {
                     /<li class="mil-active">\s*<a href="index\.html">Home<\/a>\s*<\/li>/,
                     '<li><a href="index.html">Home</a></li>'
                 ).replace(
-                    /<li>\s*<a href="services\.html">Services<\/a>\s*<\/li>/,
-                    '<li class="mil-active"><a href="services.html">AI Automation</a></li>'
+                    /<li>\s*<a href="\/services">Services<\/a>\s*<\/li>/,
+                    '<li class="mil-active"><a href="/services">AI Automation</a></li>'
                 );
             } else if (fileName.includes('website-development')) {
                 headerContent = headerContent.replace(
                     /<li class="mil-active">\s*<a href="index\.html">Home<\/a>\s*<\/li>/,
                     '<li><a href="index.html">Home</a></li>'
                 ).replace(
-                    /<li>\s*<a href="services\.html">Services<\/a>\s*<\/li>/,
-                    '<li class="mil-active"><a href="services.html">Website Development</a></li>'
+                    /<li>\s*<a href="\/services">Services<\/a>\s*<\/li>/,
+                    '<li class="mil-active"><a href="/services">Website Development</a></li>'
                 );
             } else if (fileName.includes('seo-services')) {
                 headerContent = headerContent.replace(
                     /<li class="mil-active">\s*<a href="index\.html">Home<\/a>\s*<\/li>/,
                     '<li><a href="index.html">Home</a></li>'
                 ).replace(
-                    /<li>\s*<a href="services\.html">Services<\/a>\s*<\/li>/,
-                    '<li class="mil-active"><a href="services.html">SEO Services</a></li>'
+                    /<li>\s*<a href="\/services">Services<\/a>\s*<\/li>/,
+                    '<li class="mil-active"><a href="/services">SEO Services</a></li>'
                 );
             } else if (fileName.includes('services')) {
                 headerContent = headerContent.replace(
                     /<li class="mil-active">\s*<a href="index\.html">Home<\/a>\s*<\/li>/,
                     '<li><a href="index.html">Home</a></li>'
                 ).replace(
-                    /<li>\s*<a href="services\.html">Services<\/a>\s*<\/li>/,
-                    '<li class="mil-active"><a href="services.html">Services</a></li>'
+                    /<li>\s*<a href="\/services">Services<\/a>\s*<\/li>/,
+                    '<li class="mil-active"><a href="/services">Services</a></li>'
                 );
             } else if (fileName.includes('team') || fileName.includes('about')) {
                 headerContent = headerContent.replace(
                     /<li class="mil-active">\s*<a href="index\.html">Home<\/a>\s*<\/li>/,
                     '<li><a href="index.html">Home</a></li>'
                 ).replace(
-                    /<li>\s*<a href="about\.html">About<\/a>\s*<\/li>/,
-                    '<li class="mil-active"><a href="about.html">About</a></li>'
+                    /<li>\s*<a href="\/about">About<\/a>\s*<\/li>/,
+                    '<li class="mil-active"><a href="/about">About</a></li>'
                 );
             } else if (fileName.includes('contact')) {
                 headerContent = headerContent.replace(
                     /<li class="mil-active">\s*<a href="index\.html">Home<\/a>\s*<\/li>/,
                     '<li><a href="index.html">Home</a></li>'
                 ).replace(
-                    /<li>\s*<a href="contact\.html">Let's Connect<\/a>\s*<\/li>/,
-                    '<li class="mil-active"><a href="contact.html">Let\'s Connect</a></li>'
+                    /<li>\s*<a href="\/contact">Let's Connect<\/a>\s*<\/li>/,
+                    '<li class="mil-active"><a href="/contact">Let\'s Connect</a></li>'
                 );
             } else if (fileName.includes('blog')) {
                 headerContent = headerContent.replace(
