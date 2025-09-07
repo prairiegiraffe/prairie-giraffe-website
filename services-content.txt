@@ -1,0 +1,223 @@
+                    <!-- services -->
+                    <section id="services">
+                        <div class="mi-invert-fix">
+                            <div class="container mil-p-120-60">
+                                <div class="row">
+                                    <div class="col-lg-5">
+
+                                        <div class="mil-lines-place mil-light"></div>
+
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="mil-text-center mil-mb-60">
+                                            <h3 class="mil-muted mil-up mil-mb-30">How I Help Service Businesses Like Yours Thrive</h3>
+                                            <p class="mil-light-soft mil-up">Whether you're running an HVAC company, managing a construction crew, or operating a welding shop, you didn't get into business to wrestle with technology. You got into it to serve customers and build something meaningful. I handle the tech so you can focus on what you do best.</p>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <a href="ai-automation.html" class="mil-service-card-lg mil-more mil-accent-cursor mil-mb-60">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-lg-2 mil-text-center">
+                                                            <div class="mil-service-icon mil-up">
+                                                                <span style="font-size: 48px;">🤖</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10">
+                                                            <h4 class="mil-muted mil-up mil-mb-30">AI Automation Services</h4>
+                                                            <h5 class="mil-light mil-up mil-mb-30">Turn 40-Hour Work Weeks Into 30 (Or Less)</h5>
+                                                            <p class="mil-descr mil-light-soft mil-up mil-mb-15"><strong>The Problem:</strong> You're drowning in repetitive tasks—customer updates, sales follow-ups, social media posts, scheduling. Meanwhile, your competitors using AI are scaling faster with fewer people.</p>
+                                                            <p class="mil-descr mil-light-soft mil-up mil-mb-15"><strong>My Solution:</strong> I build custom AI automations that handle your busiest work automatically:</p>
+                                                            <ul class="mil-service-list mil-light mil-mb-30">
+                                                                <li class="mil-up">Customer Update Systems that keep clients informed automatically</li>
+                                                                <li class="mil-up">Sales Call Scoring that identifies hot leads</li>
+                                                                <li class="mil-up">AI Blogging Systems that maintain your online presence</li>
+                                                                <li class="mil-up">Smart Daily Schedulers that optimize team time</li>
+                                                                <li class="mil-up">Marketing Chatbots that qualify leads 24/7</li>
+                                                                <li class="mil-up">Social Media Automation for consistent visibility</li>
+                                                            </ul>
+                                                            <p class="mil-light-soft mil-up mil-mb-30"><strong>Perfect For:</strong> Businesses losing 10+ hours per week to repetitive tasks</p>
+                                                            <div class="mil-link mil-accent mil-arrow-place mil-up">
+                                                                <span>Explore AI Automation Solutions</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="col-lg-12">
+                                                <a href="website-development.html" class="mil-service-card-lg mil-more mil-accent-cursor mil-offset mil-mb-60">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-lg-2 mil-text-center">
+                                                            <div class="mil-service-icon mil-up">
+                                                                <span style="font-size: 48px;">🌐</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10">
+                                                            <h4 class="mil-muted mil-up mil-mb-30">Website Development</h4>
+                                                            <h5 class="mil-light mil-up mil-mb-30">Websites That Actually Bring In Business</h5>
+                                                            <p class="mil-descr mil-light-soft mil-up mil-mb-15"><strong>The Problem:</strong> Your website looks outdated, loads slowly, and worse—it's not bringing in leads. Customers can't find what they need, and AI search engines like ChatGPT don't even know you exist.</p>
+                                                            <p class="mil-descr mil-light-soft mil-up mil-mb-15"><strong>My Solution:</strong> Fast, user-friendly websites built on modern platforms (WordPress, React, Astro) that:</p>
+                                                            <ul class="mil-service-list mil-light mil-mb-30">
+                                                                <li class="mil-up">Answer customers' questions before they ask</li>
+                                                                <li class="mil-up">Load lightning-fast on any device</li>
+                                                                <li class="mil-up">Get found by Google AND AI search engines</li>
+                                                                <li class="mil-up">Convert visitors into actual customers</li>
+                                                            </ul>
+                                                            <p class="mil-light-soft mil-up mil-mb-30"><strong>Perfect For:</strong> Businesses whose websites are costing them customers</p>
+                                                            <div class="mil-link mil-accent mil-arrow-place mil-up">
+                                                                <span>See Website Solutions</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="col-lg-12">
+                                                <a href="seo-services.html" class="mil-service-card-lg mil-more mil-accent-cursor mil-mb-60">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-lg-2 mil-text-center">
+                                                            <div class="mil-service-icon mil-up">
+                                                                <span style="font-size: 48px;">📈</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10">
+                                                            <h4 class="mil-muted mil-up mil-mb-30">The One-Page SEO Plan</h4>
+                                                            <h5 class="mil-light mil-up mil-mb-30">Get Found Without Getting Overwhelmed</h5>
+                                                            <p class="mil-descr mil-light-soft mil-up mil-mb-15"><strong>The Problem:</strong> SEO agencies throw around confusing terms, charge thousands, and you still don't show up when people search for your services. Plus, now you need to worry about AI search engines too.</p>
+                                                            <p class="mil-descr mil-light-soft mil-up mil-mb-15"><strong>My Solution:</strong> I've simplified everything into One Page:</p>
+                                                            <ul class="mil-service-list mil-light mil-mb-30">
+                                                                <li class="mil-up">Clear, actionable steps you can understand</li>
+                                                                <li class="mil-up">Optimization for Google AND AI platforms</li>
+                                                                <li class="mil-up">Monthly progress you can see and measure</li>
+                                                                <li class="mil-up">No overwhelming reports or tech jargon</li>
+                                                            </ul>
+                                                            <p class="mil-light-soft mil-up mil-mb-30"><strong>Perfect For:</strong> Service businesses that need to be found locally and online</p>
+                                                            <div class="mil-link mil-accent mil-arrow-place mil-up">
+                                                                <span>Get Your One-Page SEO Plan</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- services end -->
+                
+                <!-- pricing and work methods -->
+                <section class="mil-dark-bg">
+                    <div class="mi-invert-fix">
+                        <div class="container mil-p-120-60">
+                            <div class="row">
+                                <div class="col-lg-12 mil-mb-60">
+                                    <div class="mil-text-center">
+                                        <h2 class="mil-muted mil-up mil-mb-60">📊 How We Work Together</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mil-mb-60">
+                                    <div class="mil-service-card-lg">
+                                        <h4 class="mil-muted mil-up mil-mb-30">Project-Based Work</h4>
+                                        <p class="mil-light-soft mil-up mil-mb-15">Perfect for:</p>
+                                        <ul class="mil-service-list mil-light mil-mb-30">
+                                            <li class="mil-up">New website builds</li>
+                                            <li class="mil-up">AI automation setup</li>
+                                            <li class="mil-up">SEO optimization sprints</li>
+                                            <li class="mil-up">One-time tech challenges</li>
+                                        </ul>
+                                        <p class="mil-light-soft mil-up mil-mb-30"><strong>Investment:</strong> Starting at $3,000</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mil-mb-60">
+                                    <div class="mil-service-card-lg">
+                                        <h4 class="mil-muted mil-up mil-mb-30">Monthly Retainers</h4>
+                                        <p class="mil-light-soft mil-up mil-mb-15">Perfect for:</p>
+                                        <ul class="mil-service-list mil-light mil-mb-30">
+                                            <li class="mil-up">Ongoing website updates and maintenance</li>
+                                            <li class="mil-up">Continuous SEO improvement</li>
+                                            <li class="mil-up">Regular AI automation adjustments</li>
+                                            <li class="mil-up">Having a tech advisor on-call</li>
+                                        </ul>
+                                        <p class="mil-light-soft mil-up mil-mb-30"><strong>Investment:</strong> Starting at $200/month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- testimonials -->
+                <section class="mil-soft-bg">
+                    <div class="container mil-p-120-60">
+                        <div class="row">
+                            <div class="col-lg-12 mil-mb-60">
+                                <div class="mil-text-center">
+                                    <h2 class="mil-up mil-mb-60">Real Results for Real Businesses</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mil-mb-60">
+                                <div class="mil-service-card-lg">
+                                    <h5 class="mil-dark mil-up mil-mb-30">Custom Framing & Art Gallery</h5>
+                                    <blockquote class="mil-dark mil-up mil-mb-30">"Kellee is very attentive and he always gets back to me right away. He's knowledgeable at whatever I throw at him. He's helped take a lot of burden off of my shoulders and allows me to save money."</blockquote>
+                                    <p class="mil-dark mil-up"><strong>Results:</strong> Beautiful website that drives gallery sales + ongoing platform management</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mil-mb-60">
+                                <div class="mil-service-card-lg">
+                                    <h5 class="mil-dark mil-up mil-mb-30">JM Dent Repair</h5>
+                                    <blockquote class="mil-dark mil-up mil-mb-30">"They accomplished more in two weeks than the other company did in months. They seem to actually care about the product that they're delivering."</blockquote>
+                                    <p class="mil-dark mil-up"><strong>Results:</strong> Two high-converting websites + ongoing SEO and marketing optimization</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- call to action -->
+                <section class="mil-dark-bg">
+                    <div class="mi-invert-fix">
+                        <div class="container mil-p-120-120">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <span class="mil-suptitle mil-suptitle-right mil-suptitle-light mil-up">Every day you wait is another day your competitors pull ahead. <br> But it doesn't have to be this way.</span>
+                                </div>
+                            </div>
+                            <div class="mil-center">
+                                <h2 class="mil-muted mil-up mil-mb-60">Stop Letting <span class="mil-thin">Technology</span><br> Hold You <span class="mil-thin">Back</span></h2>
+                                <p class="mil-light-soft mil-up mil-mb-60">In as little as 5 minutes, I can tell you exactly how to solve your biggest tech challenge.</p>
+                                
+                                <div class="row justify-content-center mil-mb-60">
+                                    <div class="col-lg-4 mil-mb-30">
+                                        <div class="mil-up">
+                                            <h5 class="mil-muted mil-mb-15">📅 Schedule a Call</h5>
+                                            <p class="mil-light-soft">Let's talk through your challenges (no pressure, no obligations)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 mil-mb-30">
+                                        <div class="mil-up">
+                                            <h5 class="mil-muted mil-mb-15">💬 Text Me</h5>
+                                            <p class="mil-light-soft">Quick question? Shoot me a text for a fast answer</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 mil-mb-30">
+                                        <div class="mil-up">
+                                            <h5 class="mil-muted mil-mb-15">📧 Email Me</h5>
+                                            <p class="mil-light-soft">Prefer to write it out? I'll get back to you within 24 hours</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mil-up"><a href="contact.html" class="mil-button mil-arrow-place"><span>Let's Talk About Your Challenge</span></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- call to action end -->

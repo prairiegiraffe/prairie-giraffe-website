@@ -4,6 +4,25 @@ npm-debug.log*
 
 # Build outputs
 dist/
+build/
+
+# Large image files (keep placeholders, ignore heavy originals)
+img/**/*.png
+img/**/*.jpg
+img/**/*.jpeg
+img/**/*.gif
+!img/blog/blog-*.jpg
+!img/blog/1.jpg
+!img/blog/2.jpg
+!img/blog/3.jpg
+!img/blog/4.jpg
+!img/blog/5.jpg
+!img/blog/6.jpg
+!img/blog/7.jpg
+!img/blog/8.jpg
+
+# WordPress export (contains sensitive data)
+*.xml
 
 # OS generated files
 .DS_Store
@@ -17,6 +36,7 @@ Thumbs.db
 # Editor directories and files
 .vscode/
 .idea/
+*.sublime-*
 *.swp
 *.swo
 *~
@@ -33,6 +53,10 @@ pids/
 
 # Coverage directory used by tools like istanbul
 coverage/
+
+# Temporary files
+*.tmp
+*.temp
 
 # Environment variables
 .env

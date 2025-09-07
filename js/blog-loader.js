@@ -1,0 +1,247 @@
+// Blog Loader - Dynamically loads and displays markdown blog posts
+class BlogLoader {
+    constructor() {
+        this.posts = [];
+        this.apiEndpoint = '/api/github';
+    }
+
+    // GitHub API helper
+    async githubAPI(method, path, body = null) {
+        try {
+            const response = await fetch(this.apiEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ method, path, body })
+            });
+            
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log('Using fallback - Vercel API not available');
+                return null; // Will skip markdown posts if API fails
+            }
+        } catch (error) {
+            console.log('API error:', error.message);
+            return null;
+        }
+    }
+
+    // Load posts from GitHub
+    async loadPosts() {
+        try {
+            const data = await this.githubAPI('GET', '/repos/prairiegiraffe/prairie-giraffe-website/contents/blog');
+            if (!data) return [];
+            
+            const markdownFiles = data.filter(file => file.name.endsWith('.md'));
+            const posts = [];
+
+            for (const file of markdownFiles) {
+                try {
+                    const content = await this.githubAPI('GET', `/repos/prairiegiraffe/prairie-giraffe-website/contents/blog/${file.name}`);
+                    if (content) {
+                        const decoded = atob(content.content);
+                        const post = this.parseMarkdown(decoded, file.name);
+                        if (post) posts.push(post);
+                    }
+                } catch (error) {
+                    console.log(`Error loading ${file.name}:`, error);
+                }
+            }
+
+            return posts.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date, newest first
+        } catch (error) {
+            console.log('Error loading posts:', error);
+            return [];
+        }
+    }
+
+    // Parse markdown with frontmatter
+    parseMarkdown(content, filename) {
+        const parts = content.split('---');
+        if (parts.length < 3) return null;
+
+        const frontmatter = parts[1];
+        const body = parts.slice(2).join('---').trim();
+
+        // Extract frontmatter fields
+        const titleMatch = frontmatter.match(/title:\s*"([^"]+)"/);
+        const dateMatch = frontmatter.match(/date:\s*"([^"]+)"/);
+        const authorMatch = frontmatter.match(/author:\s*"([^"]+)"/);
+        const categoryMatch = frontmatter.match(/category:\s*"([^"]+)"/);
+        const descriptionMatch = frontmatter.match(/description:\s*"([^"]+)"/);
+
+        return {
+            title: titleMatch ? titleMatch[1] : filename.replace('.md', ''),
+            date: dateMatch ? dateMatch[1] : new Date().toISOString(),
+            author: authorMatch ? authorMatch[1] : 'Kellee Carroll',
+            category: categoryMatch ? categoryMatch[1] : 'Blog',
+            description: descriptionMatch ? descriptionMatch[1] : '',
+            content: body,
+            filename: filename,
+            slug: filename.replace('.md', '')
+        };
+    }
+
+    // Convert markdown to HTML (basic)
+    markdownToHtml(markdown) {
+        return markdown
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+            .replace(/\*(.*)\*/gim, '<em>$1</em>')
+            .replace(/!\[([^\]]*)\]\(([^\)]+)\)/gim, '<img alt="$1" src="$2">')
+            .replace(/\[([^\]]+)\]\(([^\)]+)\)/gim, '<a href="$2">$1</a>')
+            .replace(/\n\n/gim, '</p><p>')
+            .replace(/^(.+)$/gim, '<p>$1</p>')
+            .replace(/<p><\/p>/gim, '');
+    }
+
+    // Format date
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    }
+
+    // Generate blog card HTML
+    generateBlogCard(post) {
+        const excerpt = post.description || post.content.substring(0, 150) + '...';
+        const postUrl = `blog-post-${post.slug}.html`;
+        
+        // Better placeholder with proper aspect ratio
+        const imageHTML = post.featured_image ? 
+            `<img src="${post.featured_image}" alt="${post.title}">` :
+            `<div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; text-align: center; padding: 20px;">
+                <div>
+                    <div style="font-size: 32px; margin-bottom: 10px;">${post.category === 'Local SEO' ? '🎯' : post.category === 'Content Marketing' ? '📝' : post.category === 'AI Automation' ? '🤖' : post.category === 'Website Development' ? '💻' : '📊'}</div>
+                    <div>${post.category}</div>
+                </div>
+            </div>`;
+        
+        return `
+            <div class="col-lg-12">
+                <a href="${postUrl}" data-no-swup class="mil-blog-card mil-blog-card-hori mil-more mil-mb-60">
+                    <div class="mil-cover-frame mil-up">
+                        ${imageHTML}
+                    </div>
+                    <div class="mil-post-descr">
+                        <div class="mil-labels mil-up mil-mb-30">
+                            <div class="mil-label mil-upper mil-accent">${post.category}</div>
+                            <div class="mil-label mil-upper">${this.formatDate(post.date)}</div>
+                        </div>
+                        <h4 class="mil-up mil-mb-30">${post.title}</h4>
+                        <p class="mil-post-text mil-up mil-mb-30">${excerpt}</p>
+                        <div class="mil-link mil-dark mil-arrow-place mil-up">
+                            <span>Read more</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        `;
+    }
+
+    // View individual post
+    viewPost(slug) {
+        const post = this.posts.find(p => p.slug === slug);
+        if (!post) return;
+
+        // Create a simple modal or redirect to a post page
+        const content = this.markdownToHtml(post.content);
+        
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); z-index: 9999; overflow: auto;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+        `;
+        
+        modal.innerHTML = `
+            <div style="background: white; max-width: 800px; width: 100%; border-radius: 8px; overflow: hidden; max-height: 90vh; overflow-y: auto;">
+                <div style="padding: 30px;">
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                            style="float: right; background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+                    <div style="margin-bottom: 20px;">
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 4px; font-size: 12px; text-transform: uppercase;">${post.category}</span>
+                        <span style="margin-left: 15px; color: #666;">${this.formatDate(post.date)}</span>
+                    </div>
+                    <h1 style="margin-bottom: 10px; color: #2c3e50;">${post.title}</h1>
+                    <p style="color: #666; margin-bottom: 30px; font-style: italic;">${post.description}</p>
+                    <div style="line-height: 1.6; color: #333;">${content}</div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
+
+    // Generate HTML pages for posts (for SEO)
+    async generatePostPages() {
+        console.log('Generating HTML pages for posts...');
+        for (const post of this.posts) {
+            try {
+                const response = await fetch(`/api/generate-post?slug=${post.slug}`);
+                if (response.ok) {
+                    console.log(`Generated HTML page for: ${post.title}`);
+                } else {
+                    console.log(`Failed to generate page for: ${post.title}`);
+                }
+            } catch (error) {
+                console.log(`Error generating page for ${post.title}:`, error);
+            }
+        }
+    }
+
+    // Initialize and render posts
+    async init() {
+        console.log('Blog loader init() called');
+        
+        // Find the specific blog posts container (the one with blog cards)
+        const blogContainer = document.querySelector('.mil-blog-card').closest('.row');
+        console.log('Blog container found:', !!blogContainer);
+        if (!blogContainer) {
+            console.log('Could not find blog container');
+            return;
+        }
+
+        // Load markdown posts
+        console.log('Loading markdown posts...');
+        this.posts = await this.loadPosts();
+        console.log('Loaded posts:', this.posts.length, this.posts);
+
+        if (this.posts.length === 0) {
+            console.log('No markdown posts found');
+            return; // Keep existing HTML posts, don't show loading message
+        }
+
+        // Generate HTML pages for each post (for SEO)
+        await this.generatePostPages();
+
+        // Insert markdown posts at the beginning (newest first)
+        const markdownPostsHTML = this.posts.map(post => this.generateBlogCard(post)).join('');
+        console.log('Generated HTML for', this.posts.length, 'posts');
+        
+        // Insert at the beginning of the blog container
+        blogContainer.insertAdjacentHTML('afterbegin', markdownPostsHTML);
+        console.log('Inserted markdown posts at beginning of blog container');
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Blog loader script loaded');
+    console.log('Current path:', window.location.pathname);
+    console.log('Found blog cards:', !!document.querySelector('.mil-blog-card'));
+    
+    // Check if we're on a blog page
+    if (document.querySelector('.mil-blog-card') || window.location.pathname.includes('blog')) {
+        console.log('Initializing blog loader...');
+        window.blogLoader = new BlogLoader();
+        blogLoader.init();
+    } else {
+        console.log('Not on blog page, skipping blog loader');
+    }
+});
